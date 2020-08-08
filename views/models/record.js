@@ -19,4 +19,4 @@ const expSchema = new Schema({
   },
 
 })
-module.exports = mongoose.model('Expense', expSchema)
+module.exports = mongoose.model('Record', expSchema)

@@ -4,6 +4,8 @@
 const express = require('express')
 const app = express()
 const port = 3000
+const methodOverride = require('method-override')
+const bodyParser = require('body-parser')
 const mongoose = require('mongoose') // 載入 mongoose
 mongoose.connect('mongodb://localhost/Expense', { useNewUrlParser: true, useUnifiedTopology: true }) // 設定連線到 mongoDB
 // 取得資料庫連線狀態
@@ -26,6 +28,8 @@ app.set('view engine', 'handlebars')
 // setting static files
 app.use(express.static('public'))
 
+app.use(methodOverride('_method'))
+app.use(bodyParser.urlencoded({ extended: true }))
 // routes setting
 app.get('/', (req, res) => {
   res.render('index')
