@@ -16,7 +16,7 @@ const expSchema = new Schema({
   amount: {
     type: String,
     required: true
-  },
+  }
 
 })
 module.exports = mongoose.model('Record', expSchema)
