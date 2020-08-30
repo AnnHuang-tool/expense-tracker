@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const Record = require('../../views/models/record')
+const Record = require('../../models/record')
 
 // 新增
 router.get('/new', (req, res) => {
@@ -8,11 +8,52 @@ router.get('/new', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-  const { name, category, date, amount } = req.body
-  return Expense.create({ name, category, date, amount })
-    .then(() => res.redirect('/')
-      .catch(error => console.log(error)))
+  const { name, date, category, amount } = req.body
+
+  return Record.create(req.body)
+    .then(() => {
+      res.redirect('/')
+    })
+    .catch(error => console.log(error))
 })
+
+// 編輯
+
+router.get('/:id/edit', (req, res) => {
+  const id = req.params.id
+  return Record.findById(id)
+    .lean()
+    .then(record => res.render('edit', { record }))
+    .catch(error => console.log(error))
+})
+router.put('/:id', (req, res) => {
+  const id = req.params.id
+  const editRecord = req.body
+  return Record.findById(id)
+    .then(record => {
+      Object.assign(record, editRecord)
+      return record.save()
+    })
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+})
+
+// 刪除
+
+router.delete('/:id', (req, res) => {
+  const id = req.params.id
+  return Record.findById(id)
+    .then(record => record.remove())
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+})
+
+// router.post('/new', (req, res) => {
+//   const { name, category, date, amount } = req.body
+//   return Record.create({ name, category, date, amount })
+//     .then(() => res.redirect('/')
+//       .catch(error => console.log(error)))
+// })
 
 // // 瀏覽
 // router.get('/:id', (req, res) => {

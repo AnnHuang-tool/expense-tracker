@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="row d-flex justify-content-center">
+    <div class="col-sm-8 my-2">
+      <small><sup>*</sup>必填欄位</small>
+      <h4 class="d-flex justify-content-center">請修改你的支出</h4>
+
+      <form action="/expense/{{record._id}}?_method=PUT" method="POST">
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">名稱: <sup>*</sup></label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" name="name" value="{{record.name}}">
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">日期<sup>*</sup> </label>
+          <div class="col-sm-8">
+            <input type="date" class="form-control" value="{{record.date}}" name="date">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">類別<sup>*</sup></label>
+          <div class="col-sm-8">
+            <select class="form-control" name="category">
+              <option>{{record.category}}</option>
+              <option>餐飲食品</option>
+              <option>交通出行</option>
+              <option>休閒娛樂</option>
+              <option>家居物業</option>
+              <option>其他</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">金額<sup>*</sup></label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" placeholder="輸入金額" min="1" name="amount" value="{{record.amount}}">
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-sm-10">
+            <button type="submit" class="btn btn-primary">修改</button>
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>

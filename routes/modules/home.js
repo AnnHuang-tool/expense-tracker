@@ -2,7 +2,7 @@
 const express = require('express')
 const router = express.Router()
 // 引用 record model
-const Record = require('../../views/models/record')
+const Record = require('../../models/record')
 const Category = require('../../models/category')
 // 定義首頁路由
 
