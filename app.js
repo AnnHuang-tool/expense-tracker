@@ -8,6 +8,7 @@ const port = 3000
 // / 載入設定檔，要寫在 express-session 以後
 const usePassport = require('./config/passport')
 const methodOverride = require('method-override')
+const flash = require('connect-flash')   // 引用套件
 const bodyParser = require('body-parser')
 // 引用路由器
 const routes = require('./routes')
@@ -44,10 +45,14 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // 呼叫 Passport 函式並傳入 app，這條要寫在路由之前
 usePassport(app)
 // 將 request 導入路由器
+app.use(flash())  // 掛載套件
+
 
 app.use((req, res, next) => {
   // 你可以在這裡 console.log(req.user) 等資訊來觀察
   res.locals.isAuthenticated = req.isAuthenticated()
+  res.locals.success_msg = req.flash('success_msg')  // 設定 success_msg 訊息
+  res.locals.warning_msg = req.flash('warning_msg')  // 設定 warning_msg 訊息
   res.locals.user = req.user
   next()
 })
