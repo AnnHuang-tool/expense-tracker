@@ -5,7 +5,7 @@ const express = require('express')
 const session = require('express-session')
 const app = express()
 const port = 3000
-  / 載入設定檔，要寫在 express-session 以後
+// / 載入設定檔，要寫在 express-session 以後
 const usePassport = require('./config/passport')
 const methodOverride = require('method-override')
 const bodyParser = require('body-parser')
