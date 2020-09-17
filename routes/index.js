@@ -7,16 +7,14 @@ const home = require('./modules/home')
 // 引入 res 模組程式碼
 const expense = require('./modules/expense')
 const users = require('./modules/users')  // add this
+const { authenticator } = require('../middleware/auth')  // 掛載 middleware
+
+router.use('/expense', authenticator, expense) // 加入驗證程序
 
 
-// 將網址結構符合 / 字串的 request 導向 home 模組 
-router.use('/', home)
 
-
-
-// 將網址結構符合 /expense 字串開頭的 request 導向 expense 模組
-router.use('/expense', expense)
 // 總路由器引用 users 模組
 router.use('/users', users)
+router.use('/', authenticator, home) // 加入驗證程序
 // 匯出路由器
 module.exports = router
