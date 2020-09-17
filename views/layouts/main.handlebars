@@ -23,11 +23,23 @@
   <!-- Optional JavaScript -->
   <!-- navigation -->
   <nav class="navbar navbar-dark bg-light">
-    <div class="navbar-left">
+    {{!-- <div class="navbar-left">
 
 
       <a href="/" class="fas fa-pen">家庭記帳本</a>
-    </div>
+    </div> --}}
+
+    <!-- views/layouts/main.hbs -->
+    <a class="navbar navbar-dark bg-light" href="/">
+      {{#if isAuthenticated}}{{ user.name}}'s {{/if}}
+      家庭記帳本
+    </a>
+    {{#if isAuthenticated}}
+    <a href="/users/logout" class="btn btn-outline-dark">Logout</a>
+    {{else}}
+    <a href="/users/login" class="btn btn-outline-dark">Login</a>
+    {{/if}}
+
   </nav>
 
 
