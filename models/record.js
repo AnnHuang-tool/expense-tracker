@@ -13,6 +13,10 @@ const expSchema = new Schema({
     type: String,
     required: true
   },
+  merchant: {
+    type: String,
+    default: true
+  },
   amount: {
     type: String,
     required: true
