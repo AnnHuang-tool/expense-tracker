@@ -2,6 +2,7 @@
 // app.js
 // require packages used in the project
 const express = require('express')
+const session = require('express-session')
 const app = express()
 const port = 3000
 const methodOverride = require('method-override')
@@ -29,6 +30,12 @@ app.set('view engine', 'handlebars')
 
 // setting static files
 app.use(express.static('public'))
+
+app.use(session({
+  secret: 'ThisIsMySecret',
+  resave: false,
+  saveUninitialized: true
+}))
 
 app.use(methodOverride('_method'))
 app.use(bodyParser.urlencoded({ extended: true }))
