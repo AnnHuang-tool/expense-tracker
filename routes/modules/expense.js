@@ -8,9 +8,11 @@ router.get('/new', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-  const { name, date, category, amount } = req.body
+  // 變數設定
+  const userId = req.user._id
+  const { name, date, merchant, category, amount } = req.body
 
-  return Record.create(req.body)
+  return Record.create({ name, date, merchant, category, amount, userId })
     .then(() => {
       res.redirect('/')
     })
@@ -20,16 +22,18 @@ router.post('/', (req, res) => {
 // 編輯
 
 router.get('/:id/edit', (req, res) => {
-  const id = req.params.id
-  return Record.findById(id)
+  const userId = req.user._id
+  const _id = req.params.id
+  return Record.findById({ _id, userId })
     .lean()
     .then(record => res.render('edit', { record }))
     .catch(error => console.log(error))
 })
 router.put('/:id', (req, res) => {
-  const id = req.params.id
+  const userId = req.user._id
+  const _id = req.params.id
   const editRecord = req.body
-  return Record.findById(id)
+  return Record.findById({ _id, userId })
     .then(record => {
       Object.assign(record, editRecord)
       return record.save()
@@ -41,8 +45,9 @@ router.put('/:id', (req, res) => {
 // 刪除
 
 router.delete('/:id', (req, res) => {
-  const id = req.params.id
-  return Record.findById(id)
+  const userId = req.user._id
+  const _id = req.params.id
+  return Record.findById({ _id, userId })
     .then(record => record.remove())
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))

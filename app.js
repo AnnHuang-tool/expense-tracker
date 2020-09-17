@@ -12,7 +12,7 @@ const bodyParser = require('body-parser')
 // 引用路由器
 const routes = require('./routes')
 const mongoose = require('mongoose') // 載入 mongoose
-mongoose.connect('mongodb://localhost/Expense', { useNewUrlParser: true, useUnifiedTopology: true }) // 設定連線到 mongoDB
+mongoose.connect('mongodb://localhost/Expense', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }) // 設定連線到 mongoDB
 // 取得資料庫連線狀態
 const db = mongoose.connection
 // 連線異常

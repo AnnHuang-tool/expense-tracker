@@ -34,7 +34,8 @@ const Category = require('../../models/category')
 
 //all view
 router.get('/', (req, res) => {
-  Record.find()
+  const userId = req.user._id   // 變數設定   
+  Record.find({ userId })// 加入查詢條件
     .lean()
     .sort({ date: 'desc' })
     .then(records => {
