@@ -7,6 +7,7 @@ const home = require('./modules/home')
 // 引入 res 模組程式碼
 const expense = require('./modules/expense')
 const users = require('./modules/users')  // add this
+const auth = require('./modules/auth')   // 引用模組
 const { authenticator } = require('../middleware/auth')  // 掛載 middleware
 
 router.use('/expense', authenticator, expense) // 加入驗證程序
@@ -15,6 +16,7 @@ router.use('/expense', authenticator, expense) // 加入驗證程序
 
 // 總路由器引用 users 模組
 router.use('/users', users)
+router.use('/auth', auth)  // 掛載模組
 router.use('/', authenticator, home) // 加入驗證程序
 // 匯出路由器
 module.exports = router
