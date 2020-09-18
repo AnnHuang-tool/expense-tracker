@@ -9,7 +9,7 @@
 + 使用者可以篩選顯示的支出(update 2020/8/27)
 + 使用者可以查詢到前五年的支出(update 2020/8/27)
 # 專案畫面
-![](https://upload.cc/i1/2020/08/27/DnYpW4.png)
+![](https://upload.cc/i1/2020/09/18/fS1VCa.jpg)
 ![](https://upload.cc/i1/2020/09/18/j4GDpn.jpg)
 # 安裝方式
 1.打開 terminal 將專案 clone 到本地電腦
