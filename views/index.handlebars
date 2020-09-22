@@ -1,80 +1,113 @@
-<div id="head-right">
+{{!-- <div id="head-right">
   <div id="category">
     <div class="form-group">
       <select class="form-control select-region">
-        <option>類別All</option>
+        <option>分類</option>
 
-        <option value="live">家居物業</option>
-        <option value="traffic">交通出行</option>
-        <option value="play">休閒娛樂</option>
-        <option value="eat">餐飲食品 </option>
-        <option value="other">其他 </option>
+        <option value="家居物業">家居物業</option>
+        <option value="交通出行">交通出行</option>
+        <option value="休閒娛樂">休閒娛樂</option>
+        <option value="餐飲食品">餐飲食品 </option>
+        <option value="其他">其他 </option>
       </select>
-    </div>
+    </div> --}}
 
-    {{!-- totalAmount --}}
-    <h5 class='mb-3 ml-5'>總金額：<span class='ml-4'>{{totalAmount}}</span></h5>
+<div class="right-container">
+  <div class="right-container-top">
+    <form action="/filter/">
+      <div class="btn-group">
+        <input type="month" id="start" name="month" min="2020-01" value="{{month}}">
+      </div>
 
-
-
-
-    <!-- money list -->
-    <div class="container mt-5">
-      <div class="row">
-        <div class="col-md-20 col-12 mx-auto">
-          <div class="card-columns">
-            {{#each records}}
-            <a href="/expense/{{this.id}}" class="text-secondary">
-              <div class="card mb-3">
-
-
-
-
-
-                <div class="card-body p-3">
-                  <h6 class="card-title mb-1">{{this.name}}</h6>
-
-                  <div class="restaurant-category mb-1">
-                    <i class="fas fa-utensils pr-2"></i> {{this.category}}
-                  </div>
-
-                  <span class="badge badge-pill badge-danger font-weight-normal">
-                    {{this.amount}}
-                    <i class="fas fa-pen"></i>
-                  </span>
-
-                  <h6 class="card-title mb-1">{{this.date}}</h6>
-
-
-                  <p style="margin: 0px"><span style="color:red;">{{this.merchant}}</p></span>
-
-                  <div class="row">
-                    <div class="col-6 mt-3">
-                      <a href="./expense/{{this._id}}/edit" method="get" style="text-decoration: none;">
-                        <button type="button" class="btn btn-success btn-sm">修改</button>
-                      </a>
-                    </div>
-
-
-                    <div class="col-6 mt-3">
-                      <form action="./expense/{{ this._id }}?_method=DELETE" method="post">
-                        <button class="btn btn-outline-danger btn-sm" type="submit">刪除</button>
-                      </form>
-                    </div>
-                  </div>
-
-
-                </div>
-              </div>
-            </a>
-
-
-
-            {{/each}}
-          </div>
+      {{!-- 選擇 --}}
+      <div class="btn-group">
+        <button type="button" id="btn-filter" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">分類 <i class="fas fa-filter fa-sm"></i>
+        </button>
+        <div class="dropdown-menu scroll-menu">
+          <button class="dropdown-item" name="sort" value="all">All</button>
+          <button class="dropdown-item" name="sort" value="家居物業">家居物業</button>
+          <button class="dropdown-item" name="sort" value="交通出行">交通出行</button>
+          <button class="dropdown-item" name="sort" value="休閒娛樂">休閒娛樂</button>
+          <button class="dropdown-item" name="sort" value="餐飲食品">餐飲食品</button>
+          <button class="dropdown-item" name="sort" value="其他">其他</button>
+          {{#each categories}}
+          <button class="dropdown-item" name="sort" value="{{this.name}}"><i class="{{this.icon}}"></i>
+            {{this.name}}</button>
+          {{/each}}
         </div>
       </div>
-    </div>
+    </form>
+  </div>
 
-    <a class="btn btn-warning" href="/expense/new">新增支出
-    </a>
+
+  {{!-- totalAmount --}}
+  <h5 class='mb-3 ml-5'>總金額：<span class='ml-4'>{{totalAmount}}</span></h5>
+
+</div>
+
+
+
+
+
+<!-- money list -->
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-20 col-12 mx-auto">
+      <div class="card-columns">
+        {{#each records}}
+
+        <a href="/expense/{{this.id}}" class="text-secondary">
+          <div class="card mb-3">
+
+
+
+
+
+            <div class="card-body p-3">
+              <h6 class="card-title mb-1">{{this.name}}</h6>
+
+              <div class="restaurant-category mb-1">
+                <i class="fas fa-utensils pr-2"></i> {{this.category}}
+              </div>
+
+              <span class="badge badge-pill badge-danger font-weight-normal">
+                {{this.amount}}
+                <i class="fas fa-pen"></i>
+              </span>
+
+              <h6 class="card-title mb-1">{{this.date}}</h6>
+
+
+              <p style="margin: 0px"><span style="color:red;">{{this.merchant}}</p></span>
+
+              <div class="row">
+                <div class="col-6 mt-3">
+                  <a href="./expense/{{this._id}}/edit" method="get" style="text-decoration: none;">
+                    <button type="button" class="btn btn-success btn-sm">修改</button>
+                  </a>
+                </div>
+
+
+                <div class="col-6 mt-3">
+                  <form action="./expense/{{ this._id }}?_method=DELETE" method="post">
+                    <button class="btn btn-outline-danger btn-sm" type="submit">刪除</button>
+                  </form>
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+        </a>
+
+
+
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</div>
+
+<a class="btn btn-warning" href="/expense/new">新增支出
+</a>

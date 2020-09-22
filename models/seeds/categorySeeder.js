@@ -1,21 +1,31 @@
-// const Category = require('../category')
-// const db = require('../../config/mongoose')
-// const categories = ['家居物業', '交通出行', '休閒娛樂', '餐飲食品', '其他'].map(category => ({ name: category }))
-// const icons = [
-//   '<i class="fas fa-home fa-2x"></i>',
-//   '<i class="fas fa-shuttle-van fa-2x"></i>',
-//   '<i class="fas fa-grin-beam fa-2x"></i>',
-//   '<i class="fas fa-utensils fa-2x"></i>',
-//   '<i class="fas fa-pen fa-2x"></i>'
-// ]
+const { Category } = require('../record')
+const db = require('../../config/mongoose')
 
-// categories.map(category => {
-//   category.icon = icons[categories.indexOf(category)]
-// })
-
-// db.once('open', () => {
-//   Category.insertMany(categories).then(() => {
-//     console.log('Categories are created')
-//     db.close()
-//   })
-// })
+db.once('open', () => {
+  Category.create([
+    {
+      categoryName: '家居物業',
+      icon: 'fas fa-home'
+    },
+    {
+      categoryName: '交通出行',
+      icon: 'fas fa-shuttle-van'
+    },
+    {
+      categoryName: '休閒娛樂',
+      icon: 'fas fa-grin-beam'
+    },
+    {
+      categoryName: '餐飲食品',
+      icon: 'fas fa-utensils'
+    },
+    {
+      categoryName: '其他',
+      icon: 'fas fa-pen'
+    }
+  ]
+  )
+    .then(() => db.close())
+    .catch(error => console.log(error))
+  console.log('Category Done!!')
+})

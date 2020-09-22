@@ -6,32 +6,6 @@ const Record = require('../../models/record')
 const Category = require('../../models/category')
 
 
-// router.get('/', (req, res) => {
-//   let category = []
-//   Record.find()
-//     .sort({ _id: 1 })
-//     .lean()
-//     .then(
-//       record => {
-//         record.forEach(item => {
-//           let cato = []
-//           Category.find({ name: item.category })
-//             .lean()
-//             .then(cate => {
-//               cato.push(cate[0].tag)
-//               category.push(cato)
-//             })
-//             .catch(error => console.error(error))
-//         })
-//         res.render('index', { record, category })
-//       })
-//     .catch(err => console.error(err))
-// })
-// // 匯出路由模組
-// module.exports = router
-
-
-
 //all view
 router.get('/', (req, res) => {
   const userId = req.user._id   // 變數設定   
@@ -60,5 +34,30 @@ router.get('/filter/:category', (req, res) => {
       res.render('index', { records, totalAmount, params })
     })
 })
+
+router.get('/filter/month/:ym', (req, res) => {
+  const userId = req.user._id
+  return Record.find({ userId })
+    .lean()
+    .sort({ date: 'desc' })
+    .then(records => {
+      const selectedRecords = []
+      records.forEach(record => {
+        if (record.date.includes(req.params.ym)) {
+          selectedRecords.push(record)
+        }
+      })
+
+      records = selectedRecords
+      let totalAmount = 0
+      if (records.length !== 0) {
+        totalAmount = records.map(record => Number(record.amount)).reduce((total, amount) => total + amount)
+      }
+      const ym = req.params.ym
+      res.render('index', { records, totalAmount, ym })
+    })
+})
+
+
 
 module.exports = router
